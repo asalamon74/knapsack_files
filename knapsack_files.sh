@@ -58,56 +58,56 @@ get_file_sizes() {
     filenum=${#filenames[@]}
 }
 
+save_result() {
+    mmm[$1,$2]=$3
+    debug  "RETURN $1 $2: $3"
+}
+
 solve_knapsack() {
     local i=$1
     local j=$2
     if [ ! -z ${mmm[i,j]+x} ]; then
-        return 0
+        return
     fi    
     local temp_1
-    local temp_2
     debug "SOLVE  $i $j"
     if [[ "$i" -le 0 ]]; then
-        mmm[$i,$j]=0
         result[$i,$j]=""
-        debug "RETURN $i $j 0"
-        return 0
+        save_result "$i" "$j" 0
+        return
     fi
     if [ "$j" -le 0 ]; then
-        mmm[$i,$j]=0
         result[$i,$j]=""        
-        debug "RETURN $i $j 0"
-        return 0
+        save_result "$i" "$j" 0
+        return
     fi
     local ii=$((i-1))
     solve_knapsack $ii "$j"
     temp_1=${mmm[ii,j]}
     local fsize=${filesizes[i-1]}
     local fname=${filenames[i-1]}
+    local temp_2=0
     if [[ "${fsize}" -le "${j}" ]]; then        
         local jj=$((j-fsize))
         solve_knapsack $ii $jj
-        temp_2=${mmm[ii, jj]}
-        ((temp_2+=fsize))            
-    else
-        temp_2=0
+        temp_2=$((mmm[ii, jj]+fsize))
     fi
-    if [ $temp_1 -ge $temp_2 ]; then
+    local max
+    if [ "$temp_1" -ge "$temp_2" ]  ; then
         result[$i,$j]="${result[ii,$j]}"
+        max=$temp_1
     else
         result[$i,$j]="${result[$ii,$jj]} ${fname}"
+        max=$temp_2
     fi                                         
-    local max=$((temp_1 > temp_2 ? temp_1 : temp_2))    
-    mmm[$i,$j]=$max
-    debug "RETURN $i $j $max"
+    save_result "$i" "$j" "$max"
 }
 
 debug "Starting processing ${directory}"
 get_file_sizes
 debug "Found $filenum files"
 solve_knapsack "$filenum" $maxsize
-echo ${mmm[filenum,maxsize]}
-#echo "${result[filenum,maxsize]}"
+echo "${mmm[filenum,maxsize]}"
 for file in ${result[filenum,maxsize]}; do
     echo "$file"
 done
