@@ -30,7 +30,22 @@ esac
 done
 
 directory=${1:-}
+filesizes=()
+filenames=()
 
 [[ -z "${directory}" ]] && error "NO DIRECTORY SPECIFIED"
 
+get_file_sizes() {
+    for file in "${directory}"/*; do
+        echo "$file"
+        filenames+=("$file")
+        filesizes+=("$(stat --printf="%s" "$file")")
+    done
+}
+
 echo "Starting processing ${directory}"
+get_file_sizes
+echo Num items: ${#filenames[@]}
+echo Data: "${filenames[@]}"
+echo Num items: ${#filesizes[@]}
+echo Data: "${filesizes[@]}"
