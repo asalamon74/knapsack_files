@@ -56,9 +56,11 @@ filenum=0
 
 get_file_sizes() {
     for file in "${directory}"/*; do
-        filenames+=("$file")
-        filesizes+=("$(stat --printf="%s" "$file")")
-        debug "${filenames[-1]} ${filesizes[-1]}"
+        if [ -f "$file" ]; then
+            filenames+=("$file")
+            filesizes+=("$(stat --printf="%s" "$file")")
+            debug "${filenames[-1]} ${filesizes[-1]}"
+        fi
     done
     filenum=${#filenames[@]}
 }
