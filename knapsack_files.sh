@@ -73,7 +73,7 @@ save_result() {
 solve_knapsack() {
     local i=$1
     local j=$2
-    if [ ! -z ${mmm[i,j]+x} ]; then
+    if [ ! -z "${mmm[i,j]+x}" ]; then
         return
     fi    
     local temp_1
