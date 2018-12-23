@@ -5,8 +5,9 @@ usage() {
     echo "Usage:"
     echo "  $(basename "$0") [options] directory"
     echo "Options:"
-    echo "  -h, --help     display this help"
-    echo "  -d, --debug    print debug messages"
+    echo "  -h, --help       display this help"
+    echo "  -d, --debug      print debug messages"
+    echo "  -o, --only_files print only the file names"
 }
 
 error() {
@@ -22,6 +23,7 @@ debug() {
 }
 
 debug=
+only_files=
 
 for i in "$@"
 do
@@ -33,6 +35,9 @@ case $i in
     -d|--debug)
     debug=1
     ;;    
+    -o|--only_files)
+    only_files=1
+    ;;
     -*)
     echo "Unknown option $1"
     usage
@@ -107,7 +112,7 @@ debug "Starting processing ${directory}"
 get_file_sizes
 debug "Found $filenum files"
 solve_knapsack "$filenum" $maxsize
-echo "${mmm[filenum,maxsize]}"
+[[ -n "${only_files}" ]] || echo "${mmm[filenum,maxsize]}"
 for file in ${result[filenum,maxsize]}; do
     echo "$file"
 done
