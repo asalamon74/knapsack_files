@@ -5,7 +5,8 @@ usage() {
     echo "Usage:"
     echo "  $(basename "$0") [options] directory"
     echo "Options:"
-    echo "  -h, --help                  display this help"
+    echo "  -h, --help     display this help"
+    echo "  -d, --debug    print debug messages"
 }
 
 error() {
@@ -29,7 +30,7 @@ case $i in
     usage
     exit
     ;;
-    --debug)
+    -d|--debug)
     debug=1
     ;;    
     -*)
