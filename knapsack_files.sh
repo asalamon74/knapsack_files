@@ -34,9 +34,11 @@ case $i in
     ;;
     -d|--debug)
     debug=1
-    ;;    
+    shift
+    ;;
     -o|--only_files)
     only_files=1
+    shift
     ;;
     -*)
     echo "Unknown option $1"
