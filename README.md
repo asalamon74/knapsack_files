@@ -28,7 +28,7 @@ $ knapsack_files.sh /tmp/dir
 The output can also be piped to `mkisofs`.
 
 ```
-knapsack_files.sh /tmp/dir -o | xargs mkisofs -iso-level 2 -V label -o dvd.iso
+knapsack_files.sh -o /tmp/dir | xargs mkisofs -iso-level 2 -V label -o dvd.iso
 ```
 
 ### Usage
