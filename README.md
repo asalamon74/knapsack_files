@@ -1,10 +1,12 @@
 [![Build Status](https://travis-ci.org/asalamon74/knapsack_files.svg?branch=master)](https://travis-ci.org/asalamon74/knapsack_files)
+[![CodeFactor](https://www.codefactor.io/repository/github/asalamon74/knapsack_files/badge)](https://www.codefactor.io/repository/github/asalamon74/knapsack_files)
 
 # knapsack_files
 
 Checks the files in a directory and select the the files to be written
 onto a DVD to write as many bytes as possible. A simple
-[knapsack](https://en.wikipedia.org/wiki/Knapsack_problem) solver.
+[knapsack](https://en.wikipedia.org/wiki/Knapsack_problem)
+solver. Only works for small number of files.
 
 ##
 
