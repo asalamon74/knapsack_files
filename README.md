@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/asalamon74/knapsack_files.svg?branch=master)](https://travis-ci.org/asalamon74/knapsack_files)
+[![Build Status](https://travis-ci.com/asalamon74/knapsack_files.svg?branch=master)](https://travis-ci.com/asalamon74/knapsack_files)
 [![CodeFactor](https://www.codefactor.io/repository/github/asalamon74/knapsack_files/badge)](https://www.codefactor.io/repository/github/asalamon74/knapsack_files)
 
 # knapsack_files
