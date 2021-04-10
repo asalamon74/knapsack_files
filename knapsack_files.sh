@@ -17,7 +17,7 @@ error() {
 }
 
 debug() {
-    if [ -n "${debug}" ]; then    
+    if [ -n "${debug}" ]; then
         echo "$1" >&2
     fi
 }
@@ -75,9 +75,9 @@ save_result() {
 solve_knapsack() {
     local i=$1
     local j=$2
-    if [ ! -z "${mmm[i,j]+x}" ]; then
+    if [ -n "${mmm[i,j]+x}" ]; then
         return
-    fi    
+    fi
     local temp_1
     debug "SOLVE  $i $j"
     if [[ "$i" -le 0 ]]; then
@@ -86,7 +86,7 @@ solve_knapsack() {
         return
     fi
     if [ "$j" -le 0 ]; then
-        result[$i,$j]=""        
+        result[$i,$j]=""
         save_result "$i" "$j" 0
         return
     fi
@@ -96,7 +96,7 @@ solve_knapsack() {
     local fsize=${filesizes[i-1]}
     local fname=${filenames[i-1]}
     local temp_2=0
-    if [[ "${fsize}" -le "${j}" ]]; then        
+    if [[ "${fsize}" -le "${j}" ]]; then
         local jj=$((j-fsize))
         solve_knapsack $ii $jj
         temp_2=$((mmm[ii, jj]+fsize))
@@ -108,7 +108,7 @@ solve_knapsack() {
     else
         result[$i,$j]="${result[$ii,$jj]} ${fname}"
         max=$temp_2
-    fi                                         
+    fi
     save_result "$i" "$j" "$max"
 }
 
@@ -120,4 +120,3 @@ solve_knapsack "$filenum" $maxsize
 for file in ${result[filenum,maxsize]}; do
     echo "$file"
 done
-            
